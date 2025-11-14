@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Student_Info_GUI;
+package Student_DatabaseSQL;
 
 import javax.swing.*;
 import java.io.*;
@@ -92,7 +92,7 @@ public class Student_Info extends javax.swing.JFrame {
                 addBtnActionPerformed(evt);
             }
         });
-        Panel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 70, -1));
+        Panel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 70, -1));
 
         clearBtn.setText("clear");
         clearBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -100,21 +100,21 @@ public class Student_Info extends javax.swing.JFrame {
                 clearBtnActionPerformed(evt);
             }
         });
-        Panel1.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 140, 70, -1));
+        Panel1.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 70, -1));
 
         search.setText("Search");
-        Panel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, 20));
-        Panel1.add(searchTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 150, -1));
+        Panel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, 20));
+        Panel1.add(searchTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 150, -1));
 
         delete.setText("Delete ID");
-        Panel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 20));
+        Panel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, 20));
 
         deleteTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteTxtActionPerformed(evt);
             }
         });
-        Panel1.add(deleteTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 150, -1));
+        Panel1.add(deleteTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 150, -1));
 
         StudentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,7 +143,7 @@ public class Student_Info extends javax.swing.JFrame {
             StudentTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        Panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 320, 140));
+        Panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 320, 140));
 
         searchBtn.setText("search");
         searchBtn.setHideActionText(true);
@@ -153,7 +153,7 @@ public class Student_Info extends javax.swing.JFrame {
                 searchBtnActionPerformed(evt);
             }
         });
-        Panel1.add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 70, -1));
+        Panel1.add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 70, -1));
 
         deleteBtn.setText("delete");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +161,7 @@ public class Student_Info extends javax.swing.JFrame {
                 deleteBtnActionPerformed(evt);
             }
         });
-        Panel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 70, -1));
+        Panel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,7 +171,7 @@ public class Student_Info extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -221,8 +221,8 @@ public class Student_Info extends javax.swing.JFrame {
     model.setRowCount(0); // Clear table first
 
     try {
-    Connection con = Connector.connect();
-    String sql = "SELECT student_id, name, age, grade FROM student_info WHERE student_id LIKE ? OR name LIKE ?";
+    Connection con = DBconnect.connect();
+    String sql = "SELECT student_id, name, age, grade FROM student_sql WHERE student_id LIKE ? OR name LIKE ?";
     PreparedStatement pst = con.prepareStatement(sql);
     
     pst.setString(1, "%" + keyword + "%");
@@ -290,8 +290,8 @@ public class Student_Info extends javax.swing.JFrame {
 
         // 6. Save to MySQL database
         try {
-            Connection con = Connector.connect();
-            String sql = "INSERT INTO student_info (student_id, name, age, grade) VALUES (?, ?, ?, ?)";
+            Connection con = DBconnect.connect();
+            String sql = "INSERT INTO student_sql (student_id, name, age, grade) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, id);      // ID is string now
             pst.setString(2, name);
@@ -326,8 +326,8 @@ public class Student_Info extends javax.swing.JFrame {
     }
 
     try {
-        Connection con = Connector.connect();
-        String sql = "SELECT student_id, name, age, grade FROM student_info";
+        Connection con = DBconnect.connect();
+        String sql = "SELECT student_id, name, age, grade FROM student_sql";
 
         PreparedStatement pst = con.prepareStatement(sql);
         pst.setString(1, idToDelete);
@@ -353,9 +353,9 @@ public class Student_Info extends javax.swing.JFrame {
         model.setRowCount(0); // clear table
 
             try {
-                Connection con = Connector.connect();
+                Connection con = DBconnect.connect();
                 if (con != null) {
-                    String sql = "SELECT student_id, name, age, grade FROM student_info";
+                    String sql = "SELECT student_id, name, age, grade FROM student_sql";
                     PreparedStatement pst = con.prepareStatement(sql);
                     java.sql.ResultSet rs = pst.executeQuery();
 

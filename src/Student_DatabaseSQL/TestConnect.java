@@ -1,11 +1,11 @@
-package Student_Info_GUI;
+package Student_DatabaseSQL;
 
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 public class TestConnect {
     public static void main(String[] args) {
-        Connection con = Connector.connect();
+        Connection con = DBconnect.connect();
         if (con != null) {
             JOptionPane.showMessageDialog(null, "Database connected successfully!");
         } else {

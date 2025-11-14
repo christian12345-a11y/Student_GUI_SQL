@@ -1,16 +1,16 @@
-package Student_Info_GUI;
+package Student_DatabaseSQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Connector {
+public class DBconnect{
 
     public static Connection connect() {
         Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost:3306/studentdb"; 
+            String url = "jdbc:mysql://localhost:3306/student_info_sql"; 
             String user = "root";
             String password = "";
 
