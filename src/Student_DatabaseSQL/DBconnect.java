@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBconnect{
-
     public static Connection connect() {
         Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             String url = "jdbc:mysql://localhost:3306/student_info_sql"; 
             String user = "root";
             String password = "";
@@ -22,3 +20,4 @@ public class DBconnect{
         return conn;
     }
 }
+
